@@ -104,7 +104,6 @@ document.getElementById('destroy-button').addEventListener('click', () => {
     
     document.getElementById('destroy-button').style.display = 'none';
     document.getElementById('game-widget').style.display = 'none';
-    document.querySelector('.container').style.display = 'none'; 
     document.body.style.overflow = 'hidden'; 
     
     const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events } = Matter;
