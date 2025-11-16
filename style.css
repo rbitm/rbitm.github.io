@@ -1,0 +1,132 @@
+body {
+    font-family: 'Open Sans', sans-serif; 
+    line-height: 1.6;
+    background-color: #f4f4f4; 
+    color: #222; 
+    margin: 0;
+    padding: 0;
+    font-weight: 400; 
+    text-transform: lowercase;
+    overflow: hidden; 
+}
+.container {
+    max-width: 1100px; 
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #ffffff; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+    position: relative;
+    z-index: 1;
+}
+header {
+    border-bottom: 2px solid #f0f0f0; 
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+header h1 {
+    margin: 0;
+    color: #000;
+    font-size: 2.5em;
+    font-weight: 700; 
+    text-transform: capitalize; 
+}
+header .contact-info {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #555;
+}
+header .contact-info a {
+    color: #444; 
+    text-decoration: none;
+    font-weight: 600; 
+    margin-right: 15px; 
+    margin-left: 0;
+}
+header .contact-info a:hover {
+    text-decoration: underline;
+}
+#destroy-button {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    text-transform: lowercase;
+    font-size: 1em;
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+#destroy-button:hover {
+    background: #000;
+}
+section {
+    margin-bottom: 30px;
+}
+section h2 {
+    font-size: 1.8em;
+    color: #000; 
+    border-bottom: 2px solid #eee; 
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    font-weight: 700; 
+}
+#profile p {
+    font-size: 1.1em;
+    font-style: normal; 
+    color: #555;
+}
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px; 
+}
+.left-column {
+    flex: 1; 
+    min-width: 300px;
+}
+.right-column {
+    flex: 2; 
+    min-width: 300px;
+}
+h3 {
+    font-size: 1.3em;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 600; 
+}
+h4 {
+    font-size: 1.1em;
+    color: #666;
+    font-weight: 400; 
+    margin: 0 0 10px 0;
+}
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+li {
+    margin-bottom: 10px;
+}
+.job, .project, .education-entry {
+    margin-bottom: 25px;
+}
+.skills-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+.skills-list li {
+    margin-bottom: 15px;
+}
+.skills-list strong {
+    display: inline-block;
+    width: 120px; 
+    color: #000;
+    font-weight: 600; 
+}
+.destroyable {
+    will-change: transform;
+}
