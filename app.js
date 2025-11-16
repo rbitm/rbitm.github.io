@@ -125,7 +125,7 @@ window.onload = () => {
                 width: window.innerWidth,
                 height: window.innerHeight,
                 background: 'transparent',
-                wireframes: true,
+                wireframes: true, 
                 pixelRatio: window.devicePixelRatio
             }
         });
@@ -149,6 +149,8 @@ window.onload = () => {
         const elementBodies = [];
 
         document.querySelectorAll('.destroyable').forEach(el => {
+            document.body.appendChild(el);
+            
             const bounds = el.getBoundingClientRect();
             const body = Bodies.rectangle(
                 bounds.left + bounds.width / 2,
@@ -192,7 +194,10 @@ window.onload = () => {
         
         const physicsBall = Bodies.circle(window.innerWidth / 2, 100, 30, {
             restitution: 0.7,
-            friction: 0.1
+            friction: 0.1,
+            render: { 
+                fillStyle: '#222'
+            }
         });
         World.add(world, physicsBall);
     });
