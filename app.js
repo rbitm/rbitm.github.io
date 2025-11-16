@@ -114,7 +114,7 @@ window.onload = () => {
         document.querySelector('.container').style.display = 'none'; // hide the static white box
         document.body.style.overflow = 'hidden'; // stop scrolling
         
-        const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events }Side;
+        const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events } = Matter;
         const engine = Engine.create();
         const world = engine.world;
         engine.world.gravity.y = 1;
@@ -127,7 +127,7 @@ window.onload = () => {
                 width: window.innerWidth,
                 height: window.innerHeight,
                 background: 'transparent',
-                wireframes: false, // set to false so we only see the html
+                wireframes: false,
                 pixelRatio: window.devicePixelRatio
             }
         });
