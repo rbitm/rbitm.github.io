@@ -1,6 +1,5 @@
 window.onload = () => {
 
-    /* --- start: pong game logic --- */
     const gameContainer = document.getElementById('game-container');
     const ball = document.getElementById('game-ball');
     const paddle = document.getElementById('game-paddle');
@@ -102,24 +101,20 @@ window.onload = () => {
         pongGameRunning = false;
         gameOverText.style.display = 'block';
     }
-    /* --- end: pong game logic --- */
 
-
-    /* --- start: physics destruction logic --- */
     document.getElementById('destroy-button').addEventListener('click', () => {
         
-        // hide the things we dont need
         document.getElementById('destroy-button').style.display = 'none';
         document.getElementById('game-widget').style.display = 'none';
-        document.querySelector('.container').style.display = 'none'; // hide the static white box
-        document.body.style.overflow = 'hidden'; // stop scrolling
+        document.querySelector('.container').style.display = 'none'; 
+        document.body.style.overflow = 'hidden'; 
         
         const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events } = Matter;
+        
         const engine = Engine.create();
         const world = engine.world;
         engine.world.gravity.y = 1;
 
-        // create a renderer
         const render = Render.create({
             element: document.body,
             engine: engine,
@@ -127,7 +122,7 @@ window.onload = () => {
                 width: window.innerWidth,
                 height: window.innerHeight,
                 background: 'transparent',
-                wireframes: false,
+                wireframes: false, 
                 pixelRatio: window.devicePixelRatio
             }
         });
@@ -135,15 +130,13 @@ window.onload = () => {
         Render.run(render);
         Engine.run(engine);
 
-        // make the physics canvas invisible and put it on top to catch the mouse
         render.canvas.style.position = 'fixed'; 
         render.canvas.style.top = '0';
         render.canvas.style.left = '0';
         render.canvas.style.zIndex = '100'; 
         render.canvas.style.pointerEvents = 'auto'; 
-        render.canvas.style.opacity = 0; // invisible
+        render.canvas.style.opacity = 0; 
 
-        // create walls
         const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth, 100, { isStatic: true });
         const wallLeft = Bodies.rectangle(-50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
         const wallRight = Bodies.rectangle(window.innerWidth + 50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
@@ -152,11 +145,9 @@ window.onload = () => {
 
         const elementBodies = [];
 
-        // grab all html elements
         document.querySelectorAll('.destroyable').forEach(el => {
             const bounds = el.getBoundingClientRect();
             
-            // create a physics body for it
             const body = Bodies.rectangle(
                 bounds.left + bounds.width / 2,
                 bounds.top + bounds.height / 2,
@@ -171,15 +162,13 @@ window.onload = () => {
             World.add(world, body);
             elementBodies.push({ el, body });
             
-            // set the html element to be "fixed" so it matches the physics world
             el.style.position = 'fixed';
             el.style.top = `${bounds.top}px`;
             el.style.left = `${bounds.left}px`;
-            el.style.zIndex = '101'; // put the html *on top of* the invisible canvas
+            el.style.zIndex = '101'; 
             el.style.margin = '0'; 
         });
 
-        // this loop updates the html to follow the physics
         Events.on(engine, 'afterUpdate', () => {
             elementBodies.forEach(item => {
                 const { el, body } = item;
@@ -190,7 +179,6 @@ window.onload = () => {
             });
         });
 
-        // add mouse control
         const mouse = Mouse.create(render.canvas); 
         const mouseConstraint = MouseConstraint.create(engine, {
             mouse: mouse,
@@ -204,16 +192,14 @@ window.onload = () => {
 
         World.add(world, mouseConstraint);
         
-        // add the ball
         const physicsBall = Bodies.circle(window.innerWidth / 2, 100, 30, {
             restitution: 0.7,
             friction: 0.1,
             render: { 
-                fillStyle: '#222' // make the ball visible
+                fillStyle: '#222' 
             }
         });
         World.add(world, physicsBall);
     });
-    /* --- end: physics destruction logic --- */
     
 };
