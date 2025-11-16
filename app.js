@@ -111,7 +111,6 @@ window.onload = () => {
         document.getElementById('destroy-button').style.display = 'none';
         document.getElementById('game-widget').style.display = 'none';
         document.body.style.overflow = 'hidden';
-
         
         const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events } = Matter;
 
@@ -126,7 +125,7 @@ window.onload = () => {
                 width: window.innerWidth,
                 height: window.innerHeight,
                 background: 'transparent',
-                wireframes: false,
+                wireframes: true,
                 pixelRatio: window.devicePixelRatio
             }
         });
@@ -134,11 +133,12 @@ window.onload = () => {
         Render.run(render);
         Engine.run(engine);
 
-        render.canvas.style.position = 'absolute';
+        render.canvas.style.position = 'fixed'; 
         render.canvas.style.top = '0';
         render.canvas.style.left = '0';
-        render.canvas.style.zIndex = '0';
-        render.canvas.style.pointerEvents = 'none'; 
+        render.canvas.style.zIndex = '100'; 
+        render.canvas.style.pointerEvents = 'auto'; 
+        render.canvas.style.opacity = 0; 
 
         const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth, 100, { isStatic: true });
         const wallLeft = Bodies.rectangle(-50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
@@ -163,21 +163,21 @@ window.onload = () => {
 
             World.add(world, body);
             elementBodies.push({ el, body });
-            el.style.visibility = 'hidden';
         });
 
         Events.on(engine, 'afterUpdate', () => {
             elementBodies.forEach(item => {
                 const { el, body } = item;
-                el.style.position = 'absolute';
+                
+                el.style.position = 'fixed'; 
                 el.style.left = `${body.position.x - el.offsetWidth / 2}px`;
                 el.style.top = `${body.position.y - el.offsetHeight / 2}px`;
                 el.style.transform = `rotate(${body.angle}rad)`;
-                el.style.visibility = 'visible'; 
+                el.style.zIndex = '101'; 
             });
         });
 
-        const mouse = Mouse.create(document.body); 
+        const mouse = Mouse.create(render.canvas); 
         const mouseConstraint = MouseConstraint.create(engine, {
             mouse: mouse,
             constraint: {
@@ -188,16 +188,11 @@ window.onload = () => {
             }
         });
 
-        mouse.element = document.body;
-        render.canvas.style.pointerEvents = 'auto'; 
         World.add(world, mouseConstraint);
-
+        
         const physicsBall = Bodies.circle(window.innerWidth / 2, 100, 30, {
             restitution: 0.7,
-            friction: 0.1,
-            render: {
-                fillStyle: '#222'
-            }
+            friction: 0.1
         });
         World.add(world, physicsBall);
     });
