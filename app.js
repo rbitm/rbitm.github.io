@@ -1,6 +1,114 @@
+/* --- start: pong game logic --- */
+const gameContainer = document.getElementById('game-container');
+const ball = document.getElementById('game-ball');
+const paddle = document.getElementById('game-paddle');
+const startButton = document.getElementById('game-start-button');
+const scoreDisplay = document.getElementById('game-score-display');
+const gameOverText = document.getElementById('game-over-text');
+
+let pongScore = 0;
+let pongGameRunning = false;
+let ballX, ballY, velX, velY;
+let paddleX;
+
+const gameRect = gameContainer.getBoundingClientRect();
+
+const PADDLE_HEIGHT = paddle.offsetHeight;
+const PADDLE_WIDTH = paddle.offsetWidth;
+const BALL_SIZE = ball.offsetWidth;
+const INITIAL_SPEED = 2; 
+
+startButton.addEventListener('click', startPongGame);
+gameContainer.addEventListener('mousemove', movePaddle);
+gameContainer.addEventListener('click', () => {
+    if (!pongGameRunning && gameOverText.style.display === 'block') {
+        startPongGame();
+    }
+});
+
+function startPongGame(e) {
+    if(e) e.stopPropagation(); 
+    
+    pongScore = 0;
+    pongGameRunning = true;
+    scoreDisplay.textContent = 'score: 0';
+    startButton.style.display = 'none';
+    gameOverText.style.display = 'none';
+
+    ballX = gameRect.width / 2;
+    ballY = gameRect.height / 3;
+
+    let angle = (Math.random() * 90 + 45) * (Math.PI / 180); 
+    if (Math.random() < 0.5) angle = -angle;
+    velX = Math.cos(angle) * INITIAL_SPEED;
+    velY = Math.sin(angle) * INITIAL_SPEED;
+    
+    pongGameLoop();
+}
+
+function movePaddle(e) {
+    if (!pongGameRunning) return;
+    paddleX = e.clientX - gameRect.left - (PADDLE_WIDTH / 2);
+    
+    if (paddleX < 0) paddleX = 0;
+    if (paddleX > gameRect.width - PADDLE_WIDTH) paddleX = gameRect.width - PADDLE_WIDTH;
+    
+    paddle.style.left = paddleX + 'px';
+}
+
+function pongGameLoop() {
+    if (!pongGameRunning) return;
+
+    ballX += velX;
+    ballY += velY;
+
+    if (ballX <= 0 || ballX >= gameRect.width - BALL_SIZE) {
+        velX = -velX; 
+    }
+    if (ballY <= 0) {
+        velY = -velY; 
+    }
+    if (ballY >= gameRect.height - PADDLE_HEIGHT - BALL_SIZE - 10) { 
+        if (ballX > paddleX && ballX < paddleX + PADDLE_WIDTH) {
+            
+            velY = -velY; 
+            
+            let hitPos = (ballX - (paddleX + PADDLE_WIDTH / 2)) / (PADDLE_WIDTH / 2); 
+            
+            velX = hitPos * 2; 
+            if (hitPos === 0) { velX = 0.1; } 
+
+            let currentSpeed = Math.sqrt(velX * velX + velY * velY);
+            
+            velX = (velX / currentSpeed) * INITIAL_SPEED;
+            velY = (velY / currentSpeed) * INITIAL_SPEED;
+
+            pongScore++; 
+            scoreDisplay.textContent = 'score: ' + pongScore;
+        }
+    }
+    if (ballY >= gameRect.height - BALL_SIZE) {
+        endPongGame();
+    }
+
+    ball.style.left = ballX + 'px';
+    ball.style.top = ballY + 'px';
+    requestAnimationFrame(pongGameLoop);
+}
+
+function endPongGame() {
+    pongGameRunning = false;
+    gameOverText.style.display = 'block';
+}
+/* --- end: pong game logic --- */
+
+
+/* --- start: physics destruction logic --- */
 document.getElementById('destroy-button').addEventListener('click', () => {
-    // hide the button
+    // hide the button and the pong game
     document.getElementById('destroy-button').style.display = 'none';
+    document.getElementById('game-widget').style.display = 'none';
+    document.body.style.overflow = 'hidden';
 
     // init the physics engine
     const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events } = Matter;
@@ -29,7 +137,7 @@ document.getElementById('destroy-button').addEventListener('click', () => {
     render.canvas.style.top = '0';
     render.canvas.style.left = '0';
     render.canvas.style.zIndex = '0';
-    render.canvas.style.pointerEvents = 'none'; // pass clicks through
+    render.canvas.style.pointerEvents = 'none'; 
 
     // create 'walls' for the physics
     const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth, 100, { isStatic: true });
@@ -38,10 +146,8 @@ document.getElementById('destroy-button').addEventListener('click', () => {
     const ceiling = Bodies.rectangle(window.innerWidth / 2, -50, window.innerWidth, 100, { isStatic: true });
     World.add(world, [ground, wallLeft, wallRight, ceiling]);
 
-    // this is where we store our html elements and their physics bodies
     const elementBodies = [];
 
-    // find every element with class 'destroyable'
     document.querySelectorAll('.destroyable').forEach(el => {
         const bounds = el.getBoundingClientRect();
         const body = Bodies.rectangle(
@@ -50,19 +156,16 @@ document.getElementById('destroy-button').addEventListener('click', () => {
             bounds.width,
             bounds.height,
             {
-                restitution: 0.2, // a little bouncy
+                restitution: 0.2, 
                 friction: 0.5
             }
         );
 
         World.add(world, body);
         elementBodies.push({ el, body });
-
-        // hide the original static element
         el.style.visibility = 'hidden';
     });
 
-    // this part updates the html elements to match the physics bodies
     Events.on(engine, 'afterUpdate', () => {
         elementBodies.forEach(item => {
             const { el, body } = item;
@@ -70,12 +173,12 @@ document.getElementById('destroy-button').addEventListener('click', () => {
             el.style.left = `${body.position.x - el.offsetWidth / 2}px`;
             el.style.top = `${body.position.y - el.offsetHeight / 2}px`;
             el.style.transform = `rotate(${body.angle}rad)`;
-            el.style.visibility = 'visible'; // show the floating element
+            el.style.visibility = 'visible'; 
         });
     });
 
     // add the mouse control to fling stuff
-    const mouse = Mouse.create(document.body); // use document.body for mouse
+    const mouse = Mouse.create(document.body); 
     const mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
         constraint: {
@@ -86,18 +189,17 @@ document.getElementById('destroy-button').addEventListener('click', () => {
         }
     });
 
-    // change mouse to use document.body, not the canvas
     mouse.element = document.body;
-    render.canvas.style.pointerEvents = 'auto'; // make canvas clickable
+    render.canvas.style.pointerEvents = 'auto'; 
     World.add(world, mouseConstraint);
 
     // spawn a "ball" to break stuff
-    const ball = Bodies.circle(window.innerWidth / 2, 100, 30, {
+    const physicsBall = Bodies.circle(window.innerWidth / 2, 100, 30, {
         restitution: 0.7,
         friction: 0.1,
         render: {
             fillStyle: '#222'
         }
     });
-    World.add(world, ball);
+    World.add(world, physicsBall);
 });
