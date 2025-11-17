@@ -226,13 +226,21 @@ document.getElementById('destroy-button').addEventListener('click', () => {
 
     World.add(world, mouseConstraint);
     
-    const physicsBall = Bodies.circle(window.innerWidth / 2, 100, 30, {
-        restitution: 0.7,
-        friction: 0.1,
-        render: { 
-            fillStyle: '#222' 
-        }
-    });
-    World.add(world, physicsBall);
+    // start the infinite cat rain
+    setInterval(() => {
+        const physicsBall = Bodies.circle(
+            Math.random() * window.innerWidth, // random x
+            -30, // start above the screen
+            20,  // size
+            {
+                restitution: 0.7,
+                friction: 0.1,
+                render: { 
+                    fillStyle: '#222' 
+                }
+            }
+        );
+        World.add(world, physicsBall);
+    }, 150); // spawn a new ball every 150ms
 });
 /* --- end: physics destruction logic --- */
