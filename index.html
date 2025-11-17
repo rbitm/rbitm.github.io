@@ -121,16 +121,16 @@
                     <h2 class="destroyable">university & personal projects</h2>
                     
                     <div class="project">
-                        <h3 class="destroyable" id="project-rig">my personal rig <span class="hover-hint">(hover)</span></h3>
+                        <h3 class="destroyable">my personal rig</h3>
                         <ul class="destroyable">
                             <li class="destroyable">this is my current personal build. had to get creative to fit the gpu, but it works.</li>
                             <li class="destroyable">specs: 7600x, rx6800, 32gb 6000mhz ddr5.</li>
-                            <li class="destroyable hover-hint">chatgpt tuned, this website was made using gemini though</li>
+                            <li class="destroyable">responsible for all part selection, assembly, cable management, and os/driver setup.</li>
                         </ul>
                     </div>
 
                     <div class="project">
-                        <h3 class="destroyable" id="project-4080">friend's build: 7800x3d + 4080 super <span class="hover-hint">(hover)</span></h3>
+                        <h3 class="destroyable">friend's build: 7800x3d + 4080 super</h3>
                         <ul class="destroyable">
                             <li class="destroyable">assembled for a friend, featuring a 7800x3d and a 4080 super in an nzxt h5 flow.</li>
                             <li class="destroyable">handled component selection, assembly, and cable management.</li>
@@ -139,7 +139,7 @@
                     </div>
                     
                     <div class="project">
-                        <h3 class="destroyable" id="project-7900">friend's build: 7800x3d + 7900 xtx <span class="hover-hint">(hover)</span></h3>
+                        <h3 class="destroyable">friend's build: 7800x3d + 7900 xtx</h3>
                         <ul class="destroyable">
                             <li class="destroyable">another build for a friend, pairing a 7800x3d with a 7900 xtx.</li>
                             <li class="destroyable">assembled in a sharkoon rebel c50 case.</li>
@@ -185,4 +185,13 @@
         <div id="game-container">
             <div id="game-score-display">score: 0</div>
             <button id="game-start-button">start</button>
-            <div id="game-over-text">game over<br>
+            <div id="game-over-text">game over<br><small>(click to restart)</small></div>
+            <div id="game-ball"></div>
+            <div id="game-paddle"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
