@@ -121,16 +121,16 @@
                     <h2 class="destroyable">university & personal projects</h2>
                     
                     <div class="project">
-                        <h3 class="destroyable">my personal rig</h3>
+                        <h3 class="destroyable" id="project-rig">my personal rig <span class="hover-hint">(hover)</span></h3>
                         <ul class="destroyable">
                             <li class="destroyable">this is my current personal build. had to get creative to fit the gpu, but it works.</li>
                             <li class="destroyable">specs: 7600x, rx6800, 32gb 6000mhz ddr5.</li>
-                            <li class="destroyable">responsible for all part selection, assembly, cable management, and os/driver setup.</li>
+                            <li class="destroyable hover-hint">chatgpt tuned, this website was made using gemini though</li>
                         </ul>
                     </div>
 
                     <div class="project">
-                        <h3 class="destroyable">friend's build: 7800x3d + 4080 super</h3>
+                        <h3 class="destroyable" id="project-4080">friend's build: 7800x3d + 4080 super <span class="hover-hint">(hover)</span></h3>
                         <ul class="destroyable">
                             <li class="destroyable">assembled for a friend, featuring a 7800x3d and a 4080 super in an nzxt h5 flow.</li>
                             <li class="destroyable">handled component selection, assembly, and cable management.</li>
@@ -139,7 +139,7 @@
                     </div>
                     
                     <div class="project">
-                        <h3 class="destroyable">friend's build: 7800x3d + 7900 xtx</h3>
+                        <h3 class="destroyable" id="project-7900">friend's build: 7800x3d + 7900 xtx <span class="hover-hint">(hover)</span></h3>
                         <ul class="destroyable">
                             <li class="destroyable">another build for a friend, pairing a 7800x3d with a 7900 xtx.</li>
                             <li class="destroyable">assembled in a sharkoon rebel c50 case.</li>
@@ -179,6 +179,10 @@
                 </section>
             </div>
         </div> 
+
+        <div class="ai-disclaimer destroyable">
+            p.s. this website was made as a test to see what gemini could do.
+        </div>
     </div> 
 
     <div id="game-widget">
@@ -189,6 +193,17 @@
             <div id="game-ball"></div>
             <div id="game-paddle"></div>
         </div>
+    </div>
+
+    <div id="preview-rig" class="media-preview">
+        <img src="images/my-rig.jpg">
+        <div class="preview-caption">chatgpt tuned, this website was made using gemini though</div>
+    </div>
+    <div id="preview-4080" class="media-preview">
+        <video src="videos/nzxt-build.mov" loop muted></video>
+    </div>
+    <div id="preview-7900" class="media-preview">
+        <img src="images/sharkoon-build.jpg">
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
