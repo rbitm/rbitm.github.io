@@ -1,3 +1,40 @@
+/* --- start: media hover logic --- */
+const allPreviews = document.querySelectorAll('.media-preview');
+
+document.addEventListener('mousemove', (e) => {
+    allPreviews.forEach(preview => {
+        preview.style.left = e.clientX + 20 + 'px';
+        preview.style.top = e.clientY + 20 + 'px';
+    });
+});
+
+function setupHoverPreview(triggerId, previewId) {
+    const trigger = document.getElementById(triggerId);
+    const preview = document.getElementById(previewId);
+    
+    if (trigger && preview) {
+        trigger.addEventListener('mouseenter', () => {
+            preview.style.display = 'block';
+            if (preview.querySelector('video')) {
+                preview.querySelector('video').play();
+            }
+        });
+        
+        trigger.addEventListener('mouseleave', () => {
+            preview.style.display = 'none';
+            if (preview.querySelector('video')) {
+                preview.querySelector('video').pause();
+            }
+        });
+    }
+}
+
+setupHoverPreview('project-rig', 'preview-rig');
+setupHoverPreview('project-4080', 'preview-4080');
+setupHoverPreview('project-7900', 'preview-7900');
+/* --- end: media hover logic --- */
+
+
 /* --- start: pong game logic --- */
 const gameContainer = document.getElementById('game-container');
 const ball = document.getElementById('game-ball');
