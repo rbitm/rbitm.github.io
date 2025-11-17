@@ -132,6 +132,19 @@ li {
     will-change: transform;
 }
 
+.additional-list ul {
+    margin-top: 10px;
+    padding-left: 25px;
+}
+
+.hover-hint {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #999;
+    font-style: italic;
+    margin-left: 5px;
+}
+
 /* --- pong game css --- */
 #game-widget {
     position: fixed; 
