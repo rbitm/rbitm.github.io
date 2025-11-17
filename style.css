@@ -153,6 +153,24 @@ li {
     padding-left: 25px;
 }
 
+.hover-hint {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: #999;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+.ai-disclaimer {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #999;
+    text-align: right;
+    margin-top: 40px;
+    border-top: 2px solid #f0f0f0;
+    padding-top: 20px;
+}
+
 /* --- pong game css --- */
 #game-widget {
     position: fixed; 
@@ -219,4 +237,30 @@ li {
     z-index: 10;
     display: none; 
     text-align: center;
+}
+
+/* --- media preview css --- */
+.media-preview {
+    display: none;
+    position: fixed;
+    width: 350px;
+    z-index: 2000;
+    pointer-events: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+.media-preview img,
+.media-preview video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 2px solid #fff;
+}
+.preview-caption {
+    background: #222;
+    color: #fff;
+    padding: 8px;
+    font-size: 0.9em;
+    text-align: center;
+    border: 2px solid #fff;
+    border-top: none;
 }
