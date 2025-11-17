@@ -173,4 +173,78 @@ document.getElementById('destroy-button').addEventListener('click', () => {
     const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth, 100, { isStatic: true });
     const wallLeft = Bodies.rectangle(-50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
     const wallRight = Bodies.rectangle(window.innerWidth + 50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
-    const ceiling = Bodies
+    const ceiling = Bodies.rectangle(window.innerWidth / 2, -50, window.innerWidth, 100, { isStatic: true });
+    World.add(world, [ground, wallLeft, wallRight, ceiling]);
+
+    const elementBodies = [];
+
+    document.querySelectorAll('.destroyable').forEach(el => {
+        const bounds = el.getBoundingClientRect();
+        
+        const body = Bodies.rectangle(
+            bounds.left + bounds.width / 2,
+            bounds.top + bounds.height / 2,
+            bounds.width,
+            bounds.height,
+            {
+                restitution: 0.2, 
+                friction: 0.5,
+                render: {
+                    visible: false
+                }
+            }
+        );
+
+        World.add(world, body);
+        elementBodies.push({ el, body });
+        
+        el.style.position = 'fixed';
+        el.style.top = `${bounds.top}px`;
+        el.style.left = `${bounds.left}px`;
+        el.style.zIndex = '101'; 
+        el.style.margin = '0'; 
+    });
+
+    Events.on(engine, 'afterUpdate', () => {
+        elementBodies.forEach(item => {
+            const { el, body } = item;
+            
+            el.style.left = `${body.position.x - el.offsetWidth / 2}px`;
+            el.style.top = `${body.position.y - el.offsetHeight / 2}px`;
+            el.style.transform = `rotate(${body.angle}rad)`;
+        });
+    });
+
+    const mouse = Mouse.create(render.canvas); 
+    const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.2,
+            render: {
+                visible: false
+            }
+        }
+    });
+
+    World.add(world, mouseConstraint);
+    
+    setInterval(() => {
+        const physicsCat = Bodies.rectangle(
+            Math.random() * window.innerWidth, 
+            -40, 
+            40,  
+            40,  
+            {
+                restitution: 0.7,
+                friction: 0.1,
+                render: { 
+                    sprite: {
+                        texture: 'images/cat.png'
+                    }
+                }
+            }
+        );
+        World.add(world, physicsCat);
+    }, 150); 
+});
+/* --- end: physics destruction logic --- */
