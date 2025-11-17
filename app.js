@@ -15,12 +15,16 @@ function setupHoverPreview(triggerId, previewId) {
     if (trigger && preview) {
         trigger.addEventListener('mouseenter', () => {
             preview.style.display = 'block';
-            if (preview.tagName === 'VIDEO') preview.play();
+            if (preview.querySelector('video')) {
+                preview.querySelector('video').play();
+            }
         });
         
         trigger.addEventListener('mouseleave', () => {
             preview.style.display = 'none';
-            if (preview.tagName === 'VIDEO') preview.pause();
+            if (preview.querySelector('video')) {
+                preview.querySelector('video').pause();
+            }
         });
     }
 }
@@ -239,7 +243,9 @@ document.getElementById('destroy-button').addEventListener('click', () => {
                 friction: 0.1,
                 render: { 
                     sprite: {
-                        texture: 'images/cat.png'
+                        texture: 'images/cat.png',
+                        xScale: 1,
+                        yScale: 1
                     }
                 }
             }
