@@ -169,7 +169,7 @@ document.getElementById('destroy-button').addEventListener('click', () => {
     render.canvas.style.left = '0';
     render.canvas.style.zIndex = '100'; 
     render.canvas.style.pointerEvents = 'auto'; 
-    render.canvas.style.opacity = 0; 
+    // render.canvas.style.opacity = 0;  <-- this was the bug. i removed it.
 
     const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth, 100, { isStatic: true });
     const wallLeft = Bodies.rectangle(-50, window.innerHeight / 2, 100, window.innerHeight, { isStatic: true });
@@ -229,9 +229,9 @@ document.getElementById('destroy-button').addEventListener('click', () => {
     // start the infinite cat rain
     setInterval(() => {
         const physicsBall = Bodies.circle(
-            Math.random() * window.innerWidth, // random x
-            -30, // start above the screen
-            20,  // size
+            Math.random() * window.innerWidth, 
+            -30, 
+            20,  
             {
                 restitution: 0.7,
                 friction: 0.1,
@@ -241,6 +241,6 @@ document.getElementById('destroy-button').addEventListener('click', () => {
             }
         );
         World.add(world, physicsBall);
-    }, 150); // spawn a new ball every 150ms
+    }, 150); 
 });
 /* --- end: physics destruction logic --- */
