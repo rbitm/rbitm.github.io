@@ -199,3 +199,15 @@ li {
     display: none; 
     text-align: center;
 }
+
+/* --- new media preview css --- */
+.media-preview {
+    display: none;
+    position: fixed;
+    width: 350px;
+    height: auto;
+    z-index: 2000;
+    pointer-events: none;
+    border: 2px solid #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
