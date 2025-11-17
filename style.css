@@ -229,14 +229,28 @@ li {
     text-align: center;
 }
 
-/* --- new media preview css --- */
+/* --- media preview css --- */
 .media-preview {
     display: none;
     position: fixed;
     width: 350px;
-    height: auto;
     z-index: 2000;
     pointer-events: none;
-    border: 2px solid #fff;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+.media-preview img,
+.media-preview video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 2px solid #fff;
+}
+.preview-caption {
+    background: #222;
+    color: #fff;
+    padding: 8px;
+    font-size: 0.9em;
+    text-align: center;
+    border: 2px solid #fff;
+    border-top: none;
 }
