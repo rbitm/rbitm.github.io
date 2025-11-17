@@ -67,8 +67,7 @@
                 <section id="additional">
                     <h2 class="destroyable">additional information</h2>
                     <ul class="destroyable">
-                        <li class="destroyable"><strong>certifications & training:</strong></li>
-                            <li class="destroyable">microsoft office specialist: excel associate, google foundations of cybersecurity, databricks generative al fundamentals</li>
+                        <li class="destroyable"><strong>certifications & training:</strong> microsoft office specialist: excel associate, google foundations of cybersecurity, databricks generative al fundamentals</li>
                         <li class="destroyable"><strong>languages:</strong> fluent in english and vietnamese</li>
                         <li class="destroyable"><strong>eligibility:</strong> authorized to work in the u.s. without restrictions.</li>
                     </ul>
@@ -101,15 +100,15 @@
                     <h2 class="destroyable">university & personal projects</h2>
                     
                     <div class="project">
-                        <h3 class="destroyable">my personal rig</h3>
+                        <h3 class="destroyable" id="project-rig">my personal rig</h3>
                         <ul class="destroyable">
                             <li class="destroyable">this is my current personal build. had to get creative to fit the gpu, but it works.</li>
-                            <li class="destroyable">cpu 7600x, gpu rx6800, ram ddr5 32gb 6000mhz </li>
+                            <li class="destroyable">(you can add more specs here, like cpu, gpu, etc.)</li>
                         </ul>
                     </div>
 
                     <div class="project">
-                        <h3 class="destroyable">friend's build: 7800x3d + 4080 super</h3>
+                        <h3 class="destroyable" id="project-4080">friend's build: 7800x3d + 4080 super</h3>
                         <ul class="destroyable">
                             <li class="destroyable">assembled for a friend, featuring a 7800x3d and a 4080 super in an nzxt h5 flow.</li>
                             <li class="destroyable">handled component selection, assembly, and cable management.</li>
@@ -117,7 +116,7 @@
                     </div>
                     
                     <div class="project">
-                        <h3 class="destroyable">friend's build: 7800x3d + 7900 xtx</h3>
+                        <h3 class="destroyable" id="project-7900">friend's build: 7800x3d + 7900 xtx</h3>
                         <ul class="destroyable">
                             <li class="destroyable">another build for a friend, pairing a 7800x3d with a 7900 xtx.</li>
                             <li class="destroyable">assembled in a sharkoon rebel c50 case.</li>
@@ -166,6 +165,10 @@
             <div id="game-paddle"></div>
         </div>
     </div>
+
+    <img src="images/my-rig.jpg" id="preview-rig" class="media-preview">
+    <video src="videos/nzxt-build.mov" id="preview-4080" class="media-preview" loop muted></video>
+    <img src="images/sharkoon-build.jpg" id="preview-7900" class="media-preview">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     <script src="app.js"></script>
